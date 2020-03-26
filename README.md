@@ -60,7 +60,7 @@ As an example:
 `git clone dgit://your_username/repo_name`
 <br>
 If you want to keep your decentralized, shareable git remote in sync with your GitHub repo adding
-a simple github rule as illustrated in [dgit-github-action](https://github.com/quorumcontrol/dgit-github-action) is all it takes.  Once completed your  dgit decentralized shareable remote will always be up to date and ready when you need it.<br>
+a simple github rule as illustrated in [dgit-github-action](https://github.com/quorumcontrol/dgit-github-action) is all it takes.  Once completed your dgit decentralized shareable remote will always be up to date and ready when you need it.<br>
 
 ### Built With
 
@@ -94,4 +94,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 If you have any questions or concerns please [hop into our developer chat](https://gitter.im/quorumcontrol-dgit/community) 
 on gitter and we will be glad to help. 
 
+FAQ Page: [https://dgit.dev/faq/](https://dgit.dev/faq/)
 Project Link: [https://github.com/quorumcontrol/dgit](https://github.com/quorumcontrol/dgit)
