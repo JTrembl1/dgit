@@ -26,6 +26,8 @@ var namedTreeGen *namedtree.Generator
 
 var reposMapPath = []string{"dgit", "repos"}
 
+var ErrNotFound = tupelo.ErrNotFound
+
 func init() {
 	namedTreeGen = &namedtree.Generator{Namespace: userSalt}
 }
@@ -37,6 +39,9 @@ type Options struct {
 func Find(ctx context.Context, username string, client *tupelo.Client) (*UserTree, error) {
 	namedTreeGen.Client = client
 	namedTree, err := namedTreeGen.Find(ctx, username)
+	if err == namedtree.ErrNotFound {
+		return nil, ErrNotFound
+	}
 	if err != nil {
 		return nil, err
 	}
@@ -52,6 +57,21 @@ func Create(ctx context.Context, opts *Options) (*UserTree, error) {
 	log.Debugf("created user %s (%s)", opts.Name, namedTree.Did())
 
 	return &UserTree{namedTree}, nil
+}
+
+func (t *UserTree) IsOwner(ctx context.Context, addr string) (bool, error) {
+	auths, err := t.ChainTree.Authentications()
+	if err != nil {
+		return false, err
+	}
+
+	for _, auth := range auths {
+		if auth == addr {
+			return true, nil
+		}
+	}
+
+	return false, nil
 }
 
 func (t *UserTree) AddRepo(ctx context.Context, ownerKey *ecdsa.PrivateKey, reponame string, did string) error {
